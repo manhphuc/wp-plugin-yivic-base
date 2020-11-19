@@ -10,6 +10,8 @@
  * Domain Path: /languages/
  */
 
+use Yivic\Wp\YivicBase\Libs\WpApp;
+
 defined( 'YIVIC_BASE_PLUGIN_VER' ) || define( 'YIVIC_BASE_PLUGIN_VER', 0.3 );
 defined( 'YIVIC_BASE_PLUGIN_PATH' ) || define( 'YIVIC_BASE_PLUGIN_PATH', __DIR__ );
 defined( 'YIVIC_BASE_PLUGIN_FOLDER_NAME' ) || define( 'YIVIC_BASE_PLUGIN_FOLDER_NAME', 'yivic-base' );
