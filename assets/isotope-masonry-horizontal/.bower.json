@@ -1,0 +1,44 @@
+{
+  "name": "isotope-masonry-horizontal",
+  "main": "masonry-horizontal.js",
+  "authors": [
+    "David DeSandro"
+  ],
+  "description": "masonryHorizontal layout mode for Isotope",
+  "dependencies": {
+    "get-size": "^2.0.2",
+    "isotope-layout": "^3.0.0"
+  },
+  "keywords": [
+    "masonry",
+    "horizontal",
+    "layout",
+    "isotope-layout-mode",
+    "isotope"
+  ],
+  "homepage": "https://isotope.metafizzy.co/layout-modes/masonryhorizontal.html",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "sandbox"
+  ],
+  "version": "2.0.1",
+  "_release": "2.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.1",
+    "commit": "4d95f42b7a8ffefe554a6f186bd6763495479a75"
+  },
+  "_source": "https://github.com/metafizzy/isotope-masonry-horizontal.git",
+  "_target": "^2.0.1",
+  "_originalSource": "isotope-masonry-horizontal"
+}

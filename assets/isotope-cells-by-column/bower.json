@@ -1,0 +1,17 @@
+{
+  "name": "isotope-cells-by-column",
+  "main": "cells-by-column.js",
+  "authors": [
+    "David DeSandro"
+  ],
+  "description": "cellsByColumn layout mode for Isotope",
+  "dependencies": {
+    "isotope-layout": ">=2.1 <4.0"
+  },
+  "keywords": [
+    "layout",
+    "isotope",
+    "isotope-layout-mode",
+    "horizontal"
+  ]
+}

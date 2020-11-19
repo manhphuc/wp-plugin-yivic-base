@@ -1,0 +1,27 @@
+{
+  "name": "isotope-packery",
+  "main": "packery-mode.js",
+  "authors": [
+    "Metafizzy"
+  ],
+  "description": "packery layout mode for Isotope",
+  "dependencies": {
+    "packery": "^2.0.0",
+    "isotope-layout": "^3.0.5"
+  },
+  "devDependencies": {
+    "jquery": "^1.11"
+  },
+  "keywords": [
+    "packery",
+    "layout",
+    "isotope",
+    "isotope-layout-mode"
+  ],
+  "ignore": [
+    "**/.*",
+    "sandbox/",
+    "package.json",
+    "Gruntfile.js"
+  ]
+}

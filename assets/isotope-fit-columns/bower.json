@@ -1,0 +1,17 @@
+{
+  "name": "isotope-fit-columns",
+  "main": "fit-columns.js",
+  "authors": [
+    "David DeSandro"
+  ],
+  "description": "fitColumns layout mode for Isotope",
+  "dependencies": {
+    "isotope-layout": ">=2.1 <4.0"
+  },
+  "keywords": [
+    "layout",
+    "isotope",
+    "isotope-layout-mode",
+    "horizontal"
+  ]
+}
