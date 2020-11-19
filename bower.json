@@ -1,0 +1,44 @@
+{
+  "name": "wp-yivic-base-assets",
+  "authors": [
+	"Phuc Nguyen <manhphucofficial@yahoo.com>"
+  ],
+  "description": "Assets for Yivic Base plugin",
+  "main": "bower",
+  "moduleType": [],
+  "license": "GPL-3.0",
+  "homepage": "",
+  "private": true,
+  "directory": "assets",
+  "ignore": [
+	"**/.*",
+	"node_modules",
+	"bower_components",
+	"test",
+	"tests"
+  ],
+  "dependencies": {
+	"animate.css": "latest",
+	"fancybox": "latest",
+	"isotope": "latest",
+	"bxslider-4": "latest",
+	"components-modernizr": "latest",
+	"detectizr": "latest",
+	"imagesloaded": "latest",
+	"jquery-colorbox": "latest",
+	"slick-carousel": "latest",
+	"font-awesome": "latest",
+	"jquery.cookie": "latest",
+	"isotope-layout": "^3.0.6",
+	"isotope-horizontal": "^2.0.1",
+	"isotope-packery": "^2.0.1",
+	"isotope-masonry-horizontal": "^2.0.1",
+	"isotope-fit-columns": "^1.1.4",
+	"isotope-cells-by-column": "^1.1.4",
+	"isotope-cells-by-row": "^1.1.4",
+	"bootstrap": "4"
+  },
+  "resolutions": {
+	"bootstrap": "4"
+  }
+}
