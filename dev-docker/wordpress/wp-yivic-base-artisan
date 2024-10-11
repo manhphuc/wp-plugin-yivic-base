@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+// Run WP-CLI command
+$arguments = array_slice( $argv, 1 );
+$command = escapeshellarg( 'wp' ) . ' ' . '--path=' . __DIR__ . ' yivic-base artisan' . ' ' . implode( ' ', array_map('escapeshellarg', $arguments ) );
+
+exec( $command, $output, $return_code );
+
+// Output the WP-CLI command output
+echo implode( "\n", $output ) . "\n";
+
+exit( $return_code );

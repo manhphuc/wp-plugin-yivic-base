@@ -1,0 +1,7 @@
+*
+!.gitignore
+!wp-content
+!wp-content/**/.gitignore
+!wp-cli.yml
+!wp-yivic-base-artisan
+!wp-config.php
