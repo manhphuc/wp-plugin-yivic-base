@@ -1,0 +1,123 @@
+# Copyright (C) 2024 dev@yivic.com, manhphucofficial@yahoo.com
+# This file is distributed under the same license as the Yivic Base plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Yivic Base 0.6.1\n"
+"Report-Msgid-Bugs-To: https://github.com/yiviccom/wp-proj/issues/\n"
+"Last-Translator: Yivic Team <dev@yivic.com>\n"
+"Language-Team: Yivic Team <dev@yivic.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-05-02T19:07:43+07:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.10.0\n"
+
+#. Plugin Name of the plugin
+#: yivic-base.php
+msgid "Yivic Base"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: yivic-base.php
+msgid "https://yivic.com/wp-plugin-yivic-base/"
+msgstr ""
+
+#. Description of the plugin
+#: yivic-base.php
+msgid "Base plugin for WP development using Laravel"
+msgstr "Plugin cơ bản để sử dụng Laravel trong WordPress"
+
+#. Author of the plugin
+#: yivic-base.php
+msgid "dev@yivic.com, manhphucofficial@yahoo.com"
+msgstr ""
+
+#. Author URI of the plugin
+#: yivic-base.php
+msgid "https://yivic.com/yivic-team/"
+msgstr ""
+
+#: src/App/Console/Kernel.php:65
+msgid "Hello from Yivic Base app()"
+msgstr ""
+
+#. translators: %s is replaced with "string" plugin name
+#: src/App/Actions/Show_Admin_Notice_And_Disable_Plugin_Action.php:43
+msgid "Plugin <strong>%s</strong> is disabled."
+msgstr ""
+
+#. translators: %1$s, %2$s are replaced by a string
+#: src/Foundation/WP/WP_Plugin.php:173
+#: src/Foundation/WP/WP_Theme.php:112
+msgid "Property %1$s must be set for %2$s."
+msgstr ""
+
+#. translators: %1$s, %2$s are replaced by a string
+#: src/Foundation/WP/WP_Plugin.php:173
+#: src/Foundation/WP/WP_Theme.php:112
+msgid "Value must contain only alphanumeric characters _ -"
+msgstr ""
+
+#. translators: %s is replace by a string, plugin name.
+#: src/Foundation/WP/WP_Plugin.php:219
+msgid "Plugin <strong>%s</strong> activated"
+msgstr ""
+
+#. translators: %s is replace by a string, plugin, theme or package name(s)
+#: src/Foundation/WP/WP_Plugin.php:236
+#: src/Foundation/WP/WP_Theme.php:210
+#: src/Foundation/WP/WP_Theme.php:229
+msgid "This theme needs <strong>%s</strong> to work properly."
+msgstr ""
+
+#. translators: %s is replace by a string, plugin name.
+#: src/Foundation/WP/WP_Theme.php:192
+msgid "Theme <strong>%s</strong> activated"
+msgstr ""
+
+#. translators: %s is replaced by a string, pathname
+#: src/helpers.php:138
+msgid "Folder <strong>%s</strong> must be writable, please make it 0777."
+msgstr ""
+
+#. translators: %1$s is replaced by a string, url
+#: src/helpers.php:150
+msgid "The setup has not been done correctly. Please go to this URL <a href=\"%1$s\">%1$s</a> to complete the setup"
+msgstr ""
+
+#: resources/views/errors/error.blade.php:9
+msgid "Unauthorized"
+msgstr ""
+
+#: resources/views/errors/error.blade.php:10
+msgid "Forbidden"
+msgstr ""
+
+#: resources/views/errors/error.blade.php:11
+msgid "Not Found"
+msgstr ""
+
+#: resources/views/errors/error.blade.php:12
+msgid "Page Expired"
+msgstr ""
+
+#: resources/views/errors/error.blade.php:13
+msgid "Too Many Requests"
+msgstr ""
+
+#: resources/views/errors/error.blade.php:14
+msgid "Server Error"
+msgstr ""
+
+#: resources/views/errors/error.blade.php:15
+msgid "Service Unavailable"
+msgstr ""
+
+#: resources/views/errors/error.blade.php:17
+msgid "Error"
+msgstr ""
+
+#: resources/views/errors/error.blade.php:22
+msgid "WP App Error %s"
+msgstr ""

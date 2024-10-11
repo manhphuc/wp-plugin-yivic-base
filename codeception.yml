@@ -1,0 +1,40 @@
+namespace: Yivic_Base\Tests
+support_namespace: Support
+suites:
+  unit:
+    bootstrap: ../bootstrap-unit.php
+    path: ./Unit
+    actor: UnitTester
+    step_decorators: ~
+    settings:processIsolation: true
+    modules:
+      enabled:
+        - Asserts
+        - Yivic_Base\Tests\Support\Helpers\Unit
+    coverage:
+      remote: false
+      enabled: true
+      include:
+        - ./src/*
+      exclude:
+        - ./src/helpers.php
+        - ./src/Foundation/helpers-overrides.php
+        - ./src/Foundation/helpers-wp-app.php
+        - ./src/Foundation/Support/helpers-utils.php
+      format: html
+      lower_limit: 30
+      upper_limit: 80
+      processUncoveredFiles: true
+      show_only_summary: false
+      show_uncovered: true
+paths:
+  tests  : tests          # where the tests stored
+  data   : tests/_data    # directory for fixture data
+  support: tests/Support # directory for support code
+  output : tests/_output  # directory for output
+  envs   : tests/_envs
+actor_suffix: Tester
+extensions:
+  enabled:
+    - Codeception\Extension\RunFailed
+bootstrap: codeception-bootstrap.php
