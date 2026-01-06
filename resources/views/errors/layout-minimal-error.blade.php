@@ -1,5 +1,5 @@
 @php
-	$locale = config('app.locale');
+	$locale = config( 'app.locale' );
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $locale }}">

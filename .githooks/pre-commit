@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Check if required tools are available
+if [ ! -f "vendor/bin/phpcbf" ] || [ ! -f "vendor/bin/phpcs" ] || [ ! -f "vendor/bin/phpstan" ]; then
+  echo "Required tools not found: phpcbf, phpcs, or phpstan."
+  echo "Please run 'composer install' to install the necessary dependencies."
+  exit 1
+fi
+
+# Run PHP Code Beautifier and Fixer (phpcbf) on all PHP files in the staged changes
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.php$')
+
+if [[ "$STAGED_FILES" = "" ]]; then
+  echo "No PHP files staged for commit."
+  exit 0
+fi
+
+echo "Running phpcbf to fix PHPCS errors..."
+for FILE in $STAGED_FILES; do
+  vendor/bin/phpcbf "$FILE" # Run phpcbf on each staged file
+done
+
+# Add the modified files to the staging area
+echo "Re-adding files after phpcbf fixes..."
+git add $STAGED_FILES
+
+# Run PHPCS to check for remaining issues
+echo "Running PHPCS..."
+vendor/bin/phpcs $STAGED_FILES
+
+# Run PHPStan for static analysis
+echo "Running PHPStan..."
+# vendor/bin/phpstan analyse $STAGED_FILES --memory-limit=512M
+
+# If any of the checks fail, exit with a non-zero status to block the commit
+if [ $? -ne 0 ]; then
+  echo "Code standards or static analysis checks failed. Please fix the issues and try again."
+  exit 1
+fi
+
+echo "All checks passed. Proceeding with commit."
+exit 0

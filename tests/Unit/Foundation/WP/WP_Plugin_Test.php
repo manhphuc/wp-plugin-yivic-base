@@ -76,7 +76,7 @@ class WP_Plugin_Test extends Unit_Test_Case {
 			->andReturnUsing(
 				function ( $abstract = null ) use ( $mock_wp_plugin ) {
 					if ( $abstract ) {
-							return $mock_wp_plugin;
+						return $mock_wp_plugin;
 					} else {
 						return new WP_App_Tmp_Has_True_WP_Plugin();
 					}
@@ -92,7 +92,7 @@ class WP_Plugin_Test extends Unit_Test_Case {
 			->andReturnUsing(
 				function ( $abstract = null ) use ( $mock_wp_plugin ) {
 					if ( $abstract ) {
-							return $mock_wp_plugin;
+						return $mock_wp_plugin;
 					} else {
 						return new WP_App_Tmp_Has_False_WP_Plugin();
 					}
@@ -140,7 +140,7 @@ class WP_Plugin_Test extends Unit_Test_Case {
 			->andReturnUsing(
 				function ( $abstract = null ) use ( $mock_wp_plugin ) {
 					if ( $abstract ) {
-							return $mock_wp_plugin;
+						return $mock_wp_plugin;
 					} else {
 						return new WP_App_Tmp_Has_True_WP_Plugin();
 					}
@@ -187,7 +187,7 @@ class WP_Plugin_Test extends Unit_Test_Case {
 		$namespace = 'tatata';
 
 		$theme_folder_path = $output_tmp_folder_path . DIR_SEP . 'theme-folder' . DIR_SEP . 'resources' . DIR_SEP . 'views'
-		. DIR_SEP . '_plugins' . DIR_SEP . $namespace;
+			. DIR_SEP . '_plugins' . DIR_SEP . $namespace;
 		$filesystem = new Filesystem();
 		$filesystem->ensureDirectoryExists( $theme_folder_path, 0777 );
 
@@ -231,12 +231,12 @@ class WP_Plugin_Test extends Unit_Test_Case {
 		$namespace = 'tatata';
 
 		$theme_folder_path = $output_tmp_folder_path . DIR_SEP . 'theme-folder' . DIR_SEP . 'resources' . DIR_SEP . 'views'
-		. DIR_SEP . '_plugins' . DIR_SEP . $namespace;
+			. DIR_SEP . '_plugins' . DIR_SEP . $namespace;
 		$filesystem = new Filesystem();
 		$filesystem->ensureDirectoryExists( $theme_folder_path, 0777 );
 
 		$parent_theme_folder_path = $output_tmp_folder_path . DIR_SEP . 'parent-theme-folder' . DIR_SEP . 'resources' . DIR_SEP . 'views'
-		. DIR_SEP . '_plugins' . DIR_SEP . $namespace;
+			. DIR_SEP . '_plugins' . DIR_SEP . $namespace;
 		$filesystem = new Filesystem();
 		$filesystem->ensureDirectoryExists( $parent_theme_folder_path, 0777 );
 

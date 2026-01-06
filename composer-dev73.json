@@ -19,6 +19,7 @@
     "wpackagist-theme/twentytwenty": "^2.0",
     "automattic/vipwpcs": "~3.0.0",
     "phpcompatibility/php-compatibility": "~9.3.5",
+    "php-stubs/wordpress-stubs": "6.2.1",
     "dealerdirect/phpcodesniffer-composer-installer": "~1.0.0"
   },
   "minimum-stability": "dev",
@@ -47,6 +48,9 @@
   ],
   "autoload": {
     "files": [
+      "src/Foundation/Support/helpers-utils.php",
+      "./yivic-base-bootstrap.php",
+      "./yivic-base-init.php"
     ],
     "psr-4": {
       "Yivic_Base\\Deps\\": "src-deps",

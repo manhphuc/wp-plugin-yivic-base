@@ -46,8 +46,8 @@ class Bootstrap_WP_App_Action_Test extends Unit_Test_Case {
 
 		$config_mock = $this->config;
 		$config_mock->method( 'get' )
-		->with( 'app.env' )
-		->willReturn( 'production' );
+			->with( 'app.env' )
+			->willReturn( 'production' );
 
 		/** @var WP_Application $app_mock */
 		$app_mock = $this->createMock( WP_Application::class );
@@ -95,8 +95,8 @@ class Bootstrap_WP_App_Action_Test extends Unit_Test_Case {
 
 		$config_mock = $this->config;
 		$config_mock->method( 'get' )
-		->with( 'app.env' )
-		->willReturn( 'production' );
+			->with( 'app.env' )
+			->willReturn( 'production' );
 
 		/** @var WP_Application $app_mock */
 		$app_mock = $this->createMock( WP_Application::class );

@@ -7,7 +7,6 @@ namespace Yivic_Base\Foundation\WP;
 use Yivic_Base\App\Support\App_Const;
 use Yivic_Base\Foundation\Shared\Traits\Config_Trait;
 use Exception;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use InvalidArgumentException;
 
@@ -22,7 +21,7 @@ abstract class WP_Theme extends ServiceProvider implements WP_Theme_Interface {
 
 	/**
 	 * @property string The slug of the theme, it should be the folder name, we use it for the instance name
-	*/
+	 */
 	protected $theme_slug;
 	protected $base_path;
 	protected $base_url;
@@ -116,8 +115,8 @@ abstract class WP_Theme extends ServiceProvider implements WP_Theme_Interface {
 		if ( empty( $this->theme_slug ) || ! preg_match( '/^[a-zA-Z0-9_-]+$/i', $this->theme_slug ) ) {
 			throw new InvalidArgumentException(
 				sprintf(
-				    // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped, WordPress.WP.I18n.MissingTranslatorsComment, WordPress.Security.EscapeOutput.ExceptionNotEscaped
-					__( 'Property %1$s must be set for %2$s.', 'yivic' ) . ' ' . __( 'Value must contain only alphanumeric characters _ -', 'yivic' ),
+				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped, WordPress.WP.I18n.MissingTranslatorsComment, WordPress.Security.EscapeOutput.ExceptionNotEscaped
+					__( 'Property %1$s must be set for %2$s.', 'yivic-base' ) . ' ' . __( 'Value must contain only alphanumeric characters _ -', 'yivic-base' ),
 					// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 					'theme_slug',
 					// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped

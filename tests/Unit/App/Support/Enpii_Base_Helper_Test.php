@@ -25,7 +25,6 @@ use Yivic_Base\Tests\Unit\App\Support\Yivic_Base_Helper_Test\Yivic_Base_Helper_T
 use Yivic_Base\Tests\Unit\App\Support\Yivic_Base_Helper_Test\Yivic_Base_Helper_Test_Tmp_Setup_App_Completed_No_Error;
 use Yivic_Base\Tests\Unit\App\Support\Yivic_Base_Helper_Test\Yivic_Base_Helper_Test_Tmp_Setup_App_Not_Completed;
 use Yivic_Base\Tests\Unit\App\Support\Yivic_Base_Helper_Test\Yivic_Base_Helper_Test_Tmp_Setup_App_Url;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Mockery;
 use WP_Mock;
 
@@ -48,6 +47,16 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 		global $_SERVER;
 
 		$this->backup_SERVER = $_SERVER;
+
+		WP_Mock::setUp();
+
+		WP_Mock::userFunction( 'wp_unslash' )
+			->withAnyArgs()
+			->andReturnUsing(
+				function ( $text ) {
+					return $text;
+				}
+			);
 	}
 
 	protected function tearDown(): void {
@@ -57,6 +66,7 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 
 		parent::tearDown();
 		Mockery::close();
+		WP_Mock::tearDown();
 	}
 
 	public function test_initialize_is_wp_core_loaded_false() {
@@ -111,6 +121,15 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 		$_SERVER['HTTP_HOST'] = 'example.com';
 		$_SERVER['REQUEST_URI'] = '/test';
 		$expected_url = 'http://example.com/test';
+
+		WP_Mock::userFunction( 'wp_unslash' )
+			->withAnyArgs()
+			->andReturnUsing(
+				function ( $text ) {
+					return $text;
+				}
+			);
+
 		WP_Mock::userFunction( 'sanitize_text_field' )
 			->twice()
 			->withAnyArgs()
@@ -130,9 +149,13 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 		$_SERVER['REQUEST_URI'] = '/page';
 
 		WP_Mock::userFunction( 'sanitize_text_field' )
-			->times( 3 )
+			->times( 4 )
 			->withAnyArgs()
-			->andReturnValues( [ 'localhost', '8080', '/page' ] );
+			->andReturnUsing(
+				function ( $text ) {
+					return $text;
+				}
+			);
 
 		$this->assertEquals( '//localhost:8080/page', Yivic_Base_Helper::get_current_url() );
 
@@ -141,7 +164,11 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 		WP_Mock::userFunction( 'sanitize_text_field' )
 			->times( 2 )
 			->withAnyArgs()
-			->andReturnValues( [ 'localhost', '/page' ] );
+			->andReturnUsing(
+				function ( $text ) {
+					return $text;
+				}
+			);
 
 		$this->assertEquals( '//localhost/page', Yivic_Base_Helper::get_current_url() );
 	}
@@ -155,9 +182,13 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 		$expected_url = 'https://example.com/secure';
 
 		WP_Mock::userFunction( 'sanitize_text_field' )
-			->times( 2 )
+			->times( 4 )
 			->withAnyArgs()
-			->andReturnValues( [ 'example.com', '/secure' ] );
+			->andReturnUsing(
+				function ( $text ) {
+					return $text;
+				}
+			);
 
 		$this->assertEquals( $expected_url, Yivic_Base_Helper::get_current_url() );
 	}
@@ -285,6 +316,14 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 		$_SERVER['HTTP_HOST'] = 'example.com';
 		$_SERVER['REQUEST_URI'] = '/wp-app/setup-app/?force_app_running_in_console=1';
 		WP_Mock::userFunction( 'sanitize_text_field' )
+			->withAnyArgs()
+			->andReturnUsing(
+				function ( $text ) {
+					return $text;
+				}
+			);
+
+		WP_Mock::userFunction( 'wp_unslash' )
 			->withAnyArgs()
 			->andReturnUsing(
 				function ( $text ) {
@@ -830,7 +869,7 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 	public function test_wp_app_get_asset_url_not_defined_constant_with_full_url() {
 		if ( ! defined( 'YIVIC_BASE_WP_APP_ASSET_URL' ) ) {
 
-					// Mock the get_site_url function
+			// Mock the get_site_url function
 			WP_Mock::userFunction(
 				'get_site_url',
 				[
@@ -928,8 +967,8 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 	public function test_use_yivic_base_error_handler() {
 		// Mock the apply_filters function to ensure it processes the value
 		WP_Mock::onFilter( 'yivic_base_use_error_handler' )
-		->with( true )
-		->reply( true );
+			->with( true )
+			->reply( true );
 
 		// Call the method
 		$result = Yivic_Base_Helper_Test_Tmp_True::use_yivic_base_error_handler();
@@ -966,8 +1005,8 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 	public function test_use_blade_for_wp_template() {
 		// Mock the apply_filters function to ensure it processes the value
 		WP_Mock::onFilter( 'yivic_base_use_blade_for_wp_template' )
-		->with( true )
-		->reply( true );
+			->with( true )
+			->reply( true );
 
 		// Call the method
 		$result = Yivic_Base_Helper_Test_Tmp_True::use_blade_for_wp_template();
@@ -1003,8 +1042,8 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 	public function test_disable_web_worker() {
 		// Mock the apply_filters function to ensure it processes the value
 		WP_Mock::onFilter( 'yivic_base_disable_web_worker' )
-		->with( true )
-		->reply( true );
+			->with( true )
+			->reply( true );
 
 		// Call the method
 		$result = Yivic_Base_Helper_Test_Tmp_True::disable_web_worker();
@@ -1038,40 +1077,50 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 		$this->assertTrue( $result );
 	}
 
-	public function test_prepare_wp_app_folders_empty_wp_app_base_path() {
-		// Arrange
+	/**
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
+	 */
+	public function test_prepare_wp_app_folders() {
 		$chmod = 0777;
-		$mock_base_path = '/path/to/wp-app';
-		$mock_folders = [
-			'/path/to/wp-app/folder1',
-			'/path/to/wp-app/folder2',
-			'/path/to/wp-app/folder3',
-		];
+		$wp_app_base_path = '/var/www/wp-app';
 
-		// Mock the static methods in Yivic_Base_Helper
-		$helper_mock = Mockery::mock( 'alias:Yivic_Base\App\Support\Yivic_Base_Helper_Test_Tmp_Prepare_Wp_App' );
-		$helper_mock->shouldReceive( 'get_wp_app_base_path' )
-			->andReturn( $mock_base_path );
+		// Mock WP_Filesystem to return true instead of failing
+		\WP_Mock::userFunction(
+			'WP_Filesystem',
+			[
+				'times'  => 1,
+				'return' => true, // Ensure WP_Filesystem initializes properly
+			]
+		);
 
-		$helper_mock->shouldReceive( 'get_wp_app_base_folders_paths' )
-			->with( $mock_base_path )
-			->andReturn( $mock_folders );
+		$mock_wp_filesystem = $this->getMockBuilder( \stdClass::class )
+			->addMethods( [ 'chmod', 'mkdir' ] )
+			->getMock();
 
-		// Mock the Filesystem class
-		$file_system_mock = Mockery::mock( 'overload:' . Filesystem::class );
-		$file_system_mock->shouldReceive( 'ensureDirectoryExists' )
-			->withArgs(
-				function ( $path, $mode ) use ( $mock_folders, $chmod ) {
-					return in_array( $path, $mock_folders ) && $mode === $chmod;
-				}
-			)
-			->times( count( $mock_folders ) );
+		// Expect chmod to be called exactly 3 times
+		$mock_wp_filesystem->expects( $this->exactly( 3 ) )
+			->method( 'chmod' )
+			->withAnyParameters()
+			->willReturn( true );
 
-		// Act
-		Yivic_Base_Helper_Test_Tmp_Prepare_Wp_App::prepare_wp_app_folders();
+		// Expect mkdir to be called exactly 2 times
+		$mock_wp_filesystem->expects( $this->exactly( 2 ) )
+			->method( 'mkdir' )
+			->withAnyParameters()
+			->willReturn( true );
 
+		// Assign the mock to the global $wp_filesystem variable
+		global $wp_filesystem;
+		$wp_filesystem = $mock_wp_filesystem;
+
+		// Call the method
+		Yivic_Base_Helper_Test_Tmp_Prepare_Wp_App::prepare_wp_app_folders( $chmod, $wp_app_base_path );
+
+		// If no exceptions are thrown, the test is successful
 		$this->assertTrue( true );
 	}
+
 
 	/**
 	 * @runInSeparateProcess
@@ -1254,9 +1303,9 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 
 	public function test_perform_wp_app_check_pdo_mysql_extension_not_loaded() {
 		WP_Mock::userFunction( 'get_option' )
-		->times( 1 )
-		->withAnyArgs()
-		->andReturn( true );
+			->times( 1 )
+			->withAnyArgs()
+			->andReturn( true );
 
 		// Act
 		Yivic_Base_Helper_Test_Tmp_False::perform_wp_app_check();
@@ -1395,12 +1444,12 @@ class Yivic_Base_Helper_Test extends Unit_Test_Case {
 		// Mock the method that should be called within the static method
 		$plugin_mock = Mockery::mock( 'alias:' . \Yivic_Base\App\WP\Yivic_Base_WP_Plugin::class );
 		$plugin_mock->shouldReceive( 'init_with_wp_app' )
-					->once()
-					->with(
-						'yivic-base',
-						$this->dirname, // __DIR__ should be a string
-						$this->plugin_url // The mocked return value of plugin_dir_url
-					);
+			->once()
+			->with(
+				'yivic-base',
+				$this->dirname, // __DIR__ should be a string
+				$this->plugin_url // The mocked return value of plugin_dir_url
+			);
 
 		// Act: Directly call the static method that handles the action
 		Yivic_Base_Helper::handle_wp_app_loaded_action( $this->plugin_url, $this->dirname );
@@ -1541,6 +1590,12 @@ class Yivic_Base_Helper_Test_Tmp_Is_Console_Mode_Apache extends Yivic_Base_Helpe
 }
 
 class Yivic_Base_Helper_Test_Tmp_Prepare_Wp_App extends Yivic_Base_Helper {
+	public static function get_wp_app_base_folders_paths( $wp_app_base_path ) {
+		return [
+			$wp_app_base_path . '/folder1',
+			$wp_app_base_path . '/folder2',
+		];
+	}
 }
 
 class Yivic_Base_Helper_Test_Tmp_Setup_App_Completed_No_Error extends Yivic_Base_Helper {

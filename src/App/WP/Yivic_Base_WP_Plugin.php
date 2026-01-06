@@ -24,7 +24,6 @@ use Yivic_Base\App\Actions\Register_Base_WP_App_Routes_Action;
 use Yivic_Base\App\Actions\Schedule_Run_Backup_Action;
 use Yivic_Base\App\Support\App_Const;
 use Yivic_Base\App\Support\Yivic_Base_Helper;
-use Yivic_Base\App\Support\Traits\Yivic_Base_Trans_Trait;
 use Yivic_Base\Foundation\WP\WP_Plugin;
 use Exception;
 use Illuminate\Console\Scheduling\Schedule;
@@ -40,7 +39,6 @@ use WP_User;
  * @package Yivic_Base\App\WP
  */
 final class Yivic_Base_WP_Plugin extends WP_Plugin {
-	use Yivic_Base_Trans_Trait;
 
 	public function boot() {
 		parent::boot();
@@ -242,7 +240,7 @@ final class Yivic_Base_WP_Plugin extends WP_Plugin {
 			echo $tmp_view->render();
 			$template = false;
 
-		// phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
+			// phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
 		} catch ( InvalidArgumentException $invalid_argument_exception ) {
 			// We simply want to do nothing on the InvalidArgumentException
 			//  The reason for it is to let the WP handle the template if
@@ -382,7 +380,7 @@ final class Yivic_Base_WP_Plugin extends WP_Plugin {
 
 	public function load_textdomain() {
 		$locale = determine_locale();
-		load_textdomain( 'yivic', $this->get_base_path() . '/languages/yivic-' . $locale . '.mo' );
+		load_textdomain( 'yivic-base', $this->get_base_path() . '/languages/yivic-' . $locale . '.mo' );
 	}
 
 	/**

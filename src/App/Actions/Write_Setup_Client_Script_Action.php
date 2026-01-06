@@ -39,19 +39,14 @@ class Write_Setup_Client_Script_Action extends Base_Action {
 				)
 			);
 
-			$script = <<<SCRIPT
-			<script type="text/javascript">
-				var yivic_base_setup_url = '$setup_url';
-				if (typeof(jQuery) !== 'undefined') {
-					jQuery.ajax({
-						url: yivic_base_setup_url,
-						method: "GET"
-					});
-				} else {
-					const response = fetch(yivic_base_setup_url);
-				}
-			</script>
-SCRIPT;
+			$script = '<script type="text/javascript">';
+			$script .= 'var yivic_base_setup_url = \'' . $setup_url . '\';';
+			$script .= 'if (typeof(jQuery) !== "undefined") {';
+			$script .= 'jQuery.ajax({ url: yivic_base_setup_url, method: "GET" });';
+			$script .= '} else {';
+			$script .= 'fetch(yivic_base_setup_url);';
+			$script .= '}';
+			$script .= '</script>';
 
 			// We suppress phpcs rule here because we escape the variable already
 			//  the rest of the script are static text

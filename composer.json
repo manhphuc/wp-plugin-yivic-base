@@ -43,7 +43,8 @@
   "autoload": {
     "files": [
       "src/Foundation/Support/helpers-utils.php",
-      "yivic-base-bootstrap.php"
+      "./yivic-base-bootstrap.php",
+      "./yivic-base-init.php"
     ],
     "psr-4": {
       "Carbon\\Traits\\Creator\\": "src/Foundation/Support/Carbon/Traits/Creator.php",
