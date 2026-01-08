@@ -55,8 +55,8 @@ class WP_Application extends Application {
 			App_Const::FILTER_WP_APP_PREPARE_CONFIG,
 			[
 				'app'         => require_once dirname(
-						dirname( dirname( __DIR__ ) )
-					) . DIR_SEP . 'wp-app-config' . DIR_SEP . 'app.php',
+					dirname( dirname( __DIR__ ) )
+				) . DIR_SEP . 'wp-app-config' . DIR_SEP . 'app.php',
 				'wp_app_slug' => YIVIC_BASE_WP_APP_PREFIX,
 				'wp_api_slug' => YIVIC_BASE_WP_API_PREFIX,
 			]
