@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+		 bootstrap="tests/bootstrap-unit.php"
+		 executionOrder="depends,defects"
+		 beStrictAboutOutputDuringTests="true"
+		 beStrictAboutTodoAnnotatedTests="true"
+		 colors="true"
+		 verbose="true"
+		 cacheResultFile="tests/_output/.phpunit.cache/test-results">
+	<testsuites>
+		<testsuite name="unit">
+			<directory>tests/Unit</directory>
+		</testsuite>
+	</testsuites>
+
+	<coverage cacheDirectory=".phpunit.cache/code-coverage"
+			  processUncoveredFiles="false">
+		<include>
+			<directory suffix=".php">src</directory>
+		</include>
+		<exclude>
+			<file>./src/helpers.php</file>
+		</exclude>
+	</coverage>
+
+	<php>
+		<ini name="error_reporting" value="E_ALL &amp; ~E_DEPRECATED" />
+		<ini name="serialize_precision" value="14"/>
+		<env name="WP_TESTS_DIR" value="./tests/Unit" />
+		<env name="WP_CORE_DIR" value="./dev-docker/wordpress" />
+		<env name="WP_DEBUG" value="true" />
+		<env name="WP_CONTENT_DIR" value="./dev-docker/wordpress/wp-content" />
+		<env name="WP_PLUGIN_DIR" value="./dev-docker/wordpress/wp-content/plugins" />
+	</php>
+</phpunit>

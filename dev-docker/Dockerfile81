@@ -1,0 +1,18 @@
+FROM manhphucofficial/php81_wordpress
+
+###### Prepare WordPress folders ######
+
+###### Copy main files to the container
+COPY ./dev-docker/wordpress/ /var/www/html/public
+COPY ./ /var/www/html/public/wp-content/mu-plugins/yivic-base/
+
+###### Prepare writable folders for uploads, caches, upgrades
+RUN mkdir -p /var/www/html/public/wp-content/uploads/ /var/www/html/public/wp-content/upgrade/ /var/www/html/public/wp-content/cache/
+RUN chmod -R 777 /var/www/html/public/wp-content/uploads/ /var/www/html/public/wp-content/upgrade/ /var/www/html/public/wp-content/cache/
+
+###### Uncomments the below if you want to allow the plugin, themes installation via
+######	the Admin dashboard
+# RUN mkdir -p /var/www/html/public/wp-content/plugins var/www/html/public/wp-content/themes
+# RUN chmod 777 /var/www/html/public/wp-content/plugins var/www/html/public/wp-content/themes
+
+WORKDIR /var/www/html/public

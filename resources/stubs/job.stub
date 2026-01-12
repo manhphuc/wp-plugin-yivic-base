@@ -1,0 +1,31 @@
+<?php
+
+namespace {{ namespace }};
+
+use Yivic_Base\Foundation\Jobs\Base_Job;
+use Illuminate\Foundation\Bus\Dispatchable;
+
+class {{ class }} extends Base_Job
+{
+    use Dispatchable;
+
+    /**
+     * Create a new job instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
+    public function handle(): void
+    {
+        //
+    }
+}

@@ -1,0 +1,21 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Mockery;
+
+class {{ class }} extends \PHPUnit\Framework\TestCase
+{
+    protected function setUp(): void {
+	}
+
+	protected function tearDown(): void {
+		Mockery::close();
+	}
+
+	public function test_something() {
+        // Assertions go here
+	}
+}
