@@ -12,7 +12,7 @@ or using docker (without PHP8.1 locally)
 docker run --rm --interactive --tty -e XDEBUG_MODE=coverage -v $PWD:/app manhphucofficial/php81_cli php  -d xdebug.max_nesting_level=512 -d xdebug.mode=coverage vendor/bin/phpunit --coverage-html ./tests/_output
 ```
 
-- Run PHPUnit on one single file, with method patern to test and perform the coverage check for the file to check
+- Run PHPUnit on one single file, with method pattern to test and perform the coverage check for the file to check
 ```
 php  -d xdebug.max_nesting_level=512 -d xdebug.mode=coverage vendor/bin/phpunit --coverage-text --no-configuration --colors --bootstrap=tests/bootstrap-unit.php --verbose --coverage-html ./tests/_output <path/to/test/file> --filter='test_methods(.*)' --whitelist=<path/to/file-to-be-covered>
 ```
@@ -39,7 +39,7 @@ We may want to specify the test on a separate process to avoid the conflicts wit
 ### Mock user functions (global functions)
 We use WP_Mock to do this (WP_Mock is based on Mockery so some of the methods from Mockery can be used)
 
-For example, we have the function `sanitize_text_field($text)` and in the testing method, it was called 2 times and we need to return the correct results for each time it called based on the argument `$text` we can do like this
+For example, we have the function `sanitize_text_field($text)` and in the testing method, it was called 2 times, and we need to return the correct results for each time it called based on the argument `$text` we can do like this
 
 ```
 WP_Mock::userFunction( 'sanitize_text_field' )

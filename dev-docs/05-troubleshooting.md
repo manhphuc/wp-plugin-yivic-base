@@ -13,8 +13,8 @@ Symfony\Component\Console\Application::run(?Symfony\Component\Console\Input\Inpu
 therefore, errors happens
 
 - Affected classes/methods:
-	- `Symfony\Component\Console\Application::run()`
-	- `Symfony\Component\Console\Style\SymfonyStyle::writeln()`
+    - `Symfony\Component\Console\Application::run()`
+    - `Symfony\Component\Console\Style\SymfonyStyle::writeln()`
 
 
 - **Solution**: try to have `symfony/console` < 6.0.0 or >= 6.0.0 for all packages that requires `symfony/console`

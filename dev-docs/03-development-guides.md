@@ -33,7 +33,7 @@ or if you don't have PHP 8.1 locally, you can do
 ```
 docker run --rm --interactive --tty -e XDEBUG_MODE=off -e COMPOSER=composer-dev81.json -v $PWD:/app -v ~/.composer:/root/.composer manhphucofficial/php81_cli composer install
 ```
-This command will set up a WordPress instance in `dev-docker/wordpress` folder and load this **Yivic Base** plugin as a Must Use plugin in `dev-docker/wordpress/wp-content/mu-plugins/yivic-base`
+This command will set up a WordPress instance in `dev-docker/wordpress` folder and load this **Yivic Base** plugin as a Must-Use plugin in `dev-docker/wordpress/wp-content/mu-plugins/yivic-base`
 
 - You can **up**
 ```
@@ -44,7 +44,7 @@ then list the containers to see working port to use that in your browsers
 docker-compose ps
 ```
 
-## Codestyling (PHPCS)
+## Code-styling (PHPCS)
 - Fix all possible phpcs issues
 ```
 php81 ./vendor/bin/phpcbf
@@ -64,7 +64,7 @@ php81 ./vendor/bin/phpcbf <path/to/the/folder>
 php81 ./vendor/bin/phpcs
 ```
 
-- Suppress one or multible phpcs rules for the next below line
+- Suppress one or multiple phpcs rules for the next below line
 ```
 // phpcs:ignore <rule1>(, <rule2>...)
 ```
@@ -83,7 +83,7 @@ $foo = 'bar';
 ```
 
 ## Running Unit Test
-We must run the composer and codecept run test using PHP 8.1 (considering `php81` is the alias to your PHP 8.1 executable file). We use PHPUnit 9 to be able to use `mockery/mockery`, `phpspec/prophecy`
+We must run the composer and codeception run test using PHP 8.1 (considering `php81` is the alias to your PHP 8.1 executable file). We use PHPUnit 9 to be able to use `mockery/mockery`, `phpspec/prophecy`
 
 If you don't have PHP 8.1 locally, you can use the docker:
 ```
@@ -103,7 +103,7 @@ php81 ./vendor/bin/phpunit
 php81 ./vendor/bin/phpunit --debug --verbose tests/Unit/Helpers_Test.php
 ```
 - Create a Unit Test file
-You can copy `tests/Unit/Sample_Test.php` file to your desired test file
+  You can copy `tests/Unit/Sample_Test.php` file to your desired test file
 
 ### Using Coverage report
 - Run Unit Test with PhpUnit (with coverage report)

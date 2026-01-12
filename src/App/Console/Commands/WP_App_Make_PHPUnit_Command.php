@@ -69,7 +69,7 @@ class WP_App_Make_PHPUnit_Command extends GeneratorCommand {
 		// to create the class and overwrite the user's code. So, we will bail out so the
 		// code is untouched. Otherwise, we will continue generating this class' files.
 		if ( ( ! $this->hasOption( 'force' ) ||
-			! $this->option( 'force' ) ) &&
+				! $this->option( 'force' ) ) &&
 			$this->files->exists( $file_path ) ) {
 			$this->error( $this->type . ' already exists!' );
 

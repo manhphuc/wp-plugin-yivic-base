@@ -34,7 +34,7 @@ class Main_Controller extends Base_Controller {
 			do_action( App_Const::ACTION_WP_APP_SETUP_APP );
 			$message = ob_get_clean();
 			$message .= "\n";
-		// phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
+			// phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
 		} catch ( Exception $e ) {
 		}
 

@@ -15,8 +15,8 @@ abstract class Base_Job implements Job_Interface {
 	}
 
 	public function before_handle() {
-		// We don't want to hanlde the job if it's for different Site
-		//  we simple put it back to the queue
+		// We don't want to handle the job if it's for different Site
+		//  we simply put it back to the queue
 		if ( $this->site_id && $this->site_id !== get_current_blog_id() ) {
 			if ( method_exists( $this, 'release' ) ) {
 				$this->release( 490 );

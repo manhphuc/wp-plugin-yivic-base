@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Yivic Base 0.6.1\n"
-"Report-Msgid-Bugs-To: https://github.com/yiviccom/wp-proj/issues/\n"
+"Report-Msgid-Bugs-To: https://github.com/yivic/wp-proj/issues/\n"
 "Last-Translator: Yivic Team <dev@yivic.com>\n"
 "Language-Team: Yivic Team <dev@yivic.com>\n"
 "MIME-Version: 1.0\n"

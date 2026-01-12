@@ -23,7 +23,7 @@ services:
       - DB_DATABASE
       - DB_USERNAME
       - DB_PASSWORD
-      - DB_TABLE_PREFIX=npb81_
+      - DB_TABLE_PREFIX=npm81_
       - DB_HOST
       - DB_USER
       - DB_NAME
@@ -81,4 +81,3 @@ services:
       - MYSQL_USER=$DB_USER
 volumes:
   mysql_db:
-

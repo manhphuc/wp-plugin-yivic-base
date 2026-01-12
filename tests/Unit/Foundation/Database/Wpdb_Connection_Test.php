@@ -18,8 +18,8 @@ class Wpdb_Connection_Test extends Unit_Test_Case {
 		parent::setUp();
 
 		$pdo_mock = $this->getMockBuilder( Wpdb_Connection_Test_PDO::class )
-		->disableOriginalConstructor()
-		->getMock();
+			->disableOriginalConstructor()
+			->getMock();
 
 		$config = [
 			'wpdb' => 'mock_wpdb_instance',

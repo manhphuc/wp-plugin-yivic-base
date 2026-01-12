@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Yivic_Base\App\Actions;
 
-use Yivic_Base\App\Support\Traits\Yivic_Base_Trans_Trait;
 use Yivic_Base\Foundation\Actions\Base_Action;
 use Yivic_Base\Foundation\Support\Executable_Trait;
 use Yivic_Base\Foundation\WP\WP_Plugin_Interface;
@@ -15,7 +14,6 @@ use Illuminate\Support\Facades\Session;
  */
 class Show_Admin_Notice_And_Disable_Plugin_Action extends Base_Action {
 	use Executable_Trait;
-	use Yivic_Base_Trans_Trait;
 
 	/**
 	 * @var \Yivic_Base\Foundation\WP\WP_Plugin
@@ -29,10 +27,10 @@ class Show_Admin_Notice_And_Disable_Plugin_Action extends Base_Action {
 	}
 
 	/**
-		 * Handle the action.
-		 *
-		 * @throws \Exception
-		 */
+	 * Handle the action.
+	 *
+	 * @throws \Exception
+	 */
 	public function handle(): void {
 		foreach ( $this->extra_messages as $message ) {
 			Session::push( 'caution', $message );
@@ -41,8 +39,8 @@ class Show_Admin_Notice_And_Disable_Plugin_Action extends Base_Action {
 		Session::push(
 			'caution',
 			sprintf(
-				// translators: %s is replaced with "string" plugin name
-				$this->__( 'Plugin <strong>%s</strong> is disabled.' ),
+			// translators: %s is replaced with "string" plugin name
+				__( 'Plugin <strong>%s</strong> is disabled.', 'yivic-base' ),
 				$this->plugin->get_name() . ' ' . $this->plugin->get_version()
 			)
 		);

@@ -31,14 +31,14 @@ class Bootstrap_WP_App_Action extends Base_Action {
 			$console_kernel->bootstrap();
 		} else {
 			// As we may not use Contracts\Kernel::handle(), we need to call bootstrap method
-			//  to iinitialize all boostrappers
+			//  to initialize all bootstrapper
 			/** @var \Yivic_Base\App\Http\Kernel $http_kernel */
 			$http_kernel = $wp_app->make( \Illuminate\Contracts\Http\Kernel::class );
 			$http_kernel->capture_request();
 			$http_kernel->bootstrap();
 		}
 
-		// As we don't use the LoadConfiguration boostrapper, we need the below snippets
+		// As we don't use the LoadConfiguration bootstrapper, we need the below snippets
 		//  taken from Illuminate\Foundation\Bootstrap\LoadConfiguration
 		$wp_app->detectEnvironment(
 			function () use ( $config ) {

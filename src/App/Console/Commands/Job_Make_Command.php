@@ -57,7 +57,7 @@ class Job_Make_Command extends JobMakeCommand {
 		// to create the class and overwrite the user's code. So, we will bail out so the
 		// code is untouched. Otherwise, we will continue generating this class' files.
 		if ( ( ! $this->hasOption( 'force' ) ||
-			! $this->option( 'force' ) ) &&
+				! $this->option( 'force' ) ) &&
 			$this->files->exists( $path ) ) {
 			$this->error( $this->type . ' already exists!' );
 
@@ -97,8 +97,8 @@ class Job_Make_Command extends JobMakeCommand {
 	 */
 	protected function getStub() {
 		return $this->option( 'sync' )
-						? $this->laravel->resourcePath( '/stubs/job.stub' )
-						: $this->laravel->resourcePath( '/stubs/job.queued.stub' );
+			? $this->laravel->resourcePath( '/stubs/job.stub' )
+			: $this->laravel->resourcePath( '/stubs/job.queued.stub' );
 	}
 
 	/**

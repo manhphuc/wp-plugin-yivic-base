@@ -9,7 +9,6 @@ use Illuminate\Support\ServiceProvider;
 use Yivic_Base\Foundation\Shared\Traits\Config_Trait;
 use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Support\Facades\Session;
 use InvalidArgumentException;
 
 /**
@@ -170,8 +169,8 @@ abstract class WP_Plugin extends ServiceProvider implements WP_Plugin_Interface 
 		if ( ! preg_match( '/^[a-zA-Z0-9_-]+$/i', $this->plugin_slug ) ) {
 			throw new InvalidArgumentException(
 				sprintf(
-					// translators: %1$s, %2$s are replaced by a string
-					esc_textarea( __( 'Property %1$s must be set for %2$s.', 'yivic' ) . ' ' . __( 'Value must contain only alphanumeric characters _ -', 'yivic' ) ),
+				// translators: %1$s, %2$s are replaced by a string
+					esc_textarea( __( 'Property %1$s must be set for %2$s.', 'yivic-base' ) . ' ' . __( 'Value must contain only alphanumeric characters _ -', 'yivic-base' ) ),
 					// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 					'plugin_slug',
 					// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped

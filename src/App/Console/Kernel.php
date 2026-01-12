@@ -7,14 +7,12 @@ namespace Yivic_Base\App\Console;
 use Yivic_Base\App\Console\Commands\WP_App_Setup_Command;
 use Yivic_Base\App\Support\App_Const;
 use Yivic_Base\App\Support\Yivic_Base_Helper;
-use Yivic_Base\App\Support\Traits\Yivic_Base_Trans_Trait;
 use Yivic_Base\App\WP\Yivic_Base_WP_Plugin;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Artisan;
 
 class Kernel extends ConsoleKernel {
-	use Yivic_Base_Trans_Trait;
 
 	/**
 	 * The bootstrap classes for the application.
@@ -63,8 +61,7 @@ class Kernel extends ConsoleKernel {
 				/** @var \Illuminate\Foundation\Console\ClosureCommand $this */
 				$start_time = microtime( true );
 				for ( $i = 0; $i < 500000; $i++ ) {
-					$message = $yivic_base_plugin->__( 'Hello from Yivic Base app()' );
-					// $message = __( 'Hello from Yivic Base app()' );
+					$message = __( 'Hello from Yivic Base app()', 'yivic-base' );
 				}
 				$end_time = microtime( true );
 				$this->comment( $message );
@@ -81,7 +78,7 @@ class Kernel extends ConsoleKernel {
 	protected function bootstrappers() {
 		$bootstrappers = $this->bootstrappers;
 
-		if ( ( ! empty( $_SERVER['argv'] ) && ! empty( array_intersect( (array) $_SERVER['argv'], [ 'yivic-base', 'artisan' ] ) ) ) || Yivic_Base_Helper::use_yivic_base_error_handler() ) {
+		if ( ( ! empty( $_SERVER['argv'] ) && ! empty( array_intersect( array_map( 'sanitize_text_field', (array) wp_unslash( $_SERVER['argv'] ) ), [ 'yivic-base', 'artisan' ] ) ) ) || Yivic_Base_Helper::use_yivic_base_error_handler() ) {
 			array_unshift( $bootstrappers, \Illuminate\Foundation\Bootstrap\HandleExceptions::class );
 		}
 

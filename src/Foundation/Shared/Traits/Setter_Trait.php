@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Yivic_Base\Foundation\Shared\Traits;
 
 /**
- * This trait allows to set the protected/private propeties
+ * This trait allows to set the protected/private properties
  **/
 trait Setter_Trait {
 	public function __set( $name, $value ) {

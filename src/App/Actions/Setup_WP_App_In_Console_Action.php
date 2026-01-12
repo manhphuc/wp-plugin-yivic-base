@@ -47,7 +47,7 @@ class Setup_WP_App_In_Console_Action extends Base_Action {
 				// If no exception thrown earlier, we can consider the setup script is done
 				Mark_Setup_WP_App_Done_Action::exec();
 			}
-		// phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
+			// phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
 		} catch ( Exception $e ) {
 			if ( Yivic_Base_Helper::is_console_mode() ) {
 				Mark_Setup_WP_App_Failed_Action::exec( $e->getMessage() );

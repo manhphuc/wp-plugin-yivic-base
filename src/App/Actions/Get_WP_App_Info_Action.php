@@ -15,10 +15,10 @@ class Get_WP_App_Info_Action extends Base_Action {
 	use Executable_Trait;
 
 	public function handle(): array {
-		$info = [];
-		$info['php_version'] = $this->get_php_version();
-		$info['wp_version'] = $this->get_wp_version();
-		$info['laravel_version'] = Application::VERSION;
+		$info                       = [];
+		$info['php_version']        = $this->get_php_version();
+		$info['wp_version']         = $this->get_wp_version();
+		$info['laravel_version']    = Application::VERSION;
 		$info['yivic_base_version'] = YIVIC_BASE_PLUGIN_VERSION;
 
 		return $info;

@@ -37,4 +37,5 @@ WP_Mock::bootstrap();
 
 
 require_once dirname( __DIR__ ) . '/src/Foundation/Support/helpers-utils.php';
+require_once dirname( __DIR__ ) . '/src/helpers.php';
 require_once dirname( __DIR__ ) . '/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php';

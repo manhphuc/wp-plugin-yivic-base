@@ -45,16 +45,16 @@ class Show_Admin_Notice_And_Disable_Plugin_Action_Test extends Unit_Test_Case {
 
 		$plugin_mock = Mockery::mock( WP_Plugin_Interface::class );
 		$plugin_mock->shouldReceive( 'get_name' )
-		->andReturn( $plugin_name )
-		->once();
+			->andReturn( $plugin_name )
+			->once();
 
 		$plugin_mock->shouldReceive( 'get_version' )
-		->andReturn( $plugin_version )
-		->once();
+			->andReturn( $plugin_version )
+			->once();
 
 		$plugin_mock->shouldReceive( 'get_plugin_basename' )
-		->andReturn( $plugin_basename )
-		->once();
+			->andReturn( $plugin_basename )
+			->once();
 
 		// Mock session behavior
 		Session::shouldReceive( 'push' )
@@ -83,12 +83,12 @@ class Show_Admin_Notice_And_Disable_Plugin_Action_Test extends Unit_Test_Case {
 
 		// Create partial mock of the action to mock the load_plugin_file method
 		$action_mock = Mockery::mock( Show_Admin_Notice_And_Disable_Plugin_Action::class, [ $plugin_mock, [ 'Custom message' ] ] )
-		->makePartial()
-		->shouldAllowMockingProtectedMethods();
-				// Expect the load_plugin_file method to be called
+			->makePartial()
+			->shouldAllowMockingProtectedMethods();
+		// Expect the load_plugin_file method to be called
 		$action_mock->shouldReceive( 'load_plugin_file' )
-		->once()
-		->andReturnNull();
+			->once()
+			->andReturnNull();
 
 		$action_mock->handle();
 

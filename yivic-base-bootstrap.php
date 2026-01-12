@@ -5,10 +5,10 @@ $yivic_base_existed = defined( 'YIVIC_BASE_PLUGIN_VERSION' );
 defined( 'DIR_SEP' ) || define( 'DIR_SEP', DIRECTORY_SEPARATOR );
 
 // Update these constants whenever you bump the version
-defined( 'YIVIC_BASE_PLUGIN_VERSION' ) || define( 'YIVIC_BASE_PLUGIN_VERSION', '0.7.0' );
+defined( 'YIVIC_BASE_PLUGIN_VERSION' ) || define( 'YIVIC_BASE_PLUGIN_VERSION', '0.9.1' );
 
 // We set the slug for the plugin here.
-// This slug will be used to identify the plugin instance from the WP_Applucation container
+// This slug will be used to identify the plugin instance from the WP_Application container
 defined( 'YIVIC_BASE_PLUGIN_SLUG' ) || define( 'YIVIC_BASE_PLUGIN_SLUG', 'yivic-base' );
 
 // The prefix for wp_app request

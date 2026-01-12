@@ -88,7 +88,7 @@ trait Creator {
 		try {
 			parent::__construct( $time ?: 'now', static::safeCreateDateTimeZone( $tz ) ?: null );
 		} catch ( Exception $exception ) {
-			throw new InvalidFormatException( $exception->getMessage(), 0, $exception );
+			throw new InvalidFormatException( esc_html( $exception->getMessage() ), 0 );
 		}
 
 		$this->constructedObjectId = spl_object_hash( $this );
@@ -192,7 +192,7 @@ trait Creator {
 			// @codeCoverageIgnoreEnd
 
 			if ( ! $date ) {
-				throw new InvalidFormatException( "Could not parse '$time': " . $exception->getMessage(), 0, $exception );
+				throw new InvalidFormatException( 'Could not parse time: ' . esc_html( $exception->getMessage() ), 0 );
 			}
 
 			return $date;
@@ -325,7 +325,12 @@ trait Creator {
 
 	private static function assertBetween( $unit, $value, $min, $max ) {
 		if ( static::isStrictModeEnabled() && ( $value < $min || $value > $max ) ) {
-			throw new OutOfRangeException( $unit, $min, $max, $value );
+			throw new OutOfRangeException(
+				esc_html( $unit ),
+				esc_html( $min ),
+				esc_html( $max ),
+				esc_html( $value )
+			);
 		}
 	}
 
@@ -461,7 +466,10 @@ trait Creator {
 		foreach ( $fields as $field => $range ) {
 			if ( $$field !== null && ( ! \is_int( $$field ) || $$field < $range[0] || $$field > $range[1] ) ) {
 				if ( static::isStrictModeEnabled() ) {
-					throw new InvalidDateException( $field, $$field );
+					throw new InvalidDateException(
+						esc_html( $field ),
+						esc_html( $$field )
+					);
 				}
 
 				return false;
@@ -473,7 +481,10 @@ trait Creator {
 		foreach ( array_reverse( $fields ) as $field => $range ) {
 			if ( $$field !== null && ( ! \is_int( $$field ) || $$field !== $instance->$field ) ) {
 				if ( static::isStrictModeEnabled() ) {
-					throw new InvalidDateException( $field, $$field );
+					throw new InvalidDateException(
+						esc_html( $field ),
+						esc_html( $$field )
+					);
 				}
 
 				return false;
@@ -682,7 +693,7 @@ trait Creator {
 		}
 
 		if ( static::isStrictModeEnabled() ) {
-			throw new InvalidFormatException( implode( PHP_EOL, $lastErrors['errors'] ) );
+			throw new InvalidFormatException( implode( PHP_EOL, array_map( 'esc_html', $lastErrors['errors'] ) ) );
 		}
 
 		return false;
@@ -854,7 +865,7 @@ trait Creator {
 				$format = $replacements[ $code ] ?? '?';
 
 				if ( $format === '!' ) {
-					throw new InvalidFormatException( "Format $code not supported for creation." );
+					throw new InvalidFormatException( 'Format ' . esc_html( $code ) . ' not supported for creation.' );
 				}
 
 				return $format;

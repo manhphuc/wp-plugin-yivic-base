@@ -63,7 +63,7 @@ class Main_Controller extends Base_Controller {
 			ob_start();
 			do_action( App_Const::ACTION_WP_APP_SETUP_APP );
 			ob_end_flush();
-		// phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
+			// phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
 		} catch ( Exception $e ) {
 		}
 

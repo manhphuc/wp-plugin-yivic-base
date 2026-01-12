@@ -16,6 +16,6 @@ class {{ class }} extends \PHPUnit\Framework\TestCase
 	}
 
 	public function test_something() {
-		// Assetions go here
+        // Assertions go here
 	}
 }

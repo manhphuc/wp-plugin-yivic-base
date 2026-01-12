@@ -55,8 +55,8 @@ class Base_Job_Test extends Unit_Test_Case {
 			->getMockForAbstractClass();
 
 		$base_job_mock->expects( $this->once() )
-		->method( 'release' )
-		->with( 490 );
+			->method( 'release' )
+			->with( 490 );
 
 		// Set the protected site_id property to a different value
 		$this->set_property_value( $base_job_mock, 'site_id', 1 );

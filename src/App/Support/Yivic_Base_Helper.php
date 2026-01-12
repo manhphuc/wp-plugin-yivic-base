@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Yivic_Base\App\Support;
 
+use Illuminate\Foundation\Application;
+
 class Yivic_Base_Helper {
+
 	public static $version_option;
 	public static $setup_info;
 	public static $wp_app_check = null;
 
-	public static function initialize( string $plugin_url, string $dirname ) {
+	public static function initialize( $plugin_url, $dirname ) {
 		// Check if WordPress core is loaded, if not, exit the method.
 		if ( ! static::is_wp_core_loaded() ) {
 			return;
@@ -38,32 +41,36 @@ class Yivic_Base_Helper {
 		static::init_yivic_base_wp_plugin_instance( $plugin_url, $dirname );
 	}
 
+	/**
+	 * Retrieves the current URL.
+	 *
+	 * @return string The current URL, or an empty string if not available.
+	 */
 	public static function get_current_url(): string {
 		if ( empty( $_SERVER['SERVER_NAME'] ) && empty( $_SERVER['HTTP_HOST'] ) ) {
 			return '';
 		}
-
-		if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' ) {
+		if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) ) === 'https' ) {
 			$_SERVER['HTTPS'] = 'on';
 		}
 
 		if ( isset( $_SERVER['HTTP_HOST'] ) ) {
-			$http_protocol = isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+			$http_protocol = isset( $_SERVER['HTTPS'] ) && sanitize_text_field( wp_unslash( $_SERVER['HTTPS'] ) ) === 'on' ? 'https' : 'http';
 		}
 
 		$current_url = $http_protocol ?? '';
 		$current_url .= $current_url ? '://' : '//';
 
 		if ( ! empty( $_SERVER['HTTP_HOST'] ) ) {
-			$current_url .= sanitize_text_field( $_SERVER['HTTP_HOST'] ) . ( isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( $_SERVER['REQUEST_URI'] ) : '' );
+			$current_url .= sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) . ( isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '' );
 
 			return $current_url;
 		}
 
-		if ( isset( $_SERVER['SERVER_PORT'] ) && $_SERVER['SERVER_PORT'] != '80' ) {
-			$current_url .= sanitize_text_field( $_SERVER['SERVER_NAME'] ) . ':' . sanitize_text_field( $_SERVER['SERVER_PORT'] ) . ( isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( $_SERVER['REQUEST_URI'] ) : '' );
+		if ( isset( $_SERVER['SERVER_PORT'] ) && sanitize_text_field( wp_unslash( $_SERVER['SERVER_PORT'] ) ) != '80' ) {
+			$current_url .= sanitize_text_field( wp_unslash( $_SERVER['SERVER_NAME'] ) ) . ':' . sanitize_text_field( wp_unslash( $_SERVER['SERVER_PORT'] ) ) . ( isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '' );
 		} else {
-			$current_url .= sanitize_text_field( $_SERVER['SERVER_NAME'] ) . ( isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( $_SERVER['REQUEST_URI'] ) : '' );
+			$current_url .= sanitize_text_field( wp_unslash( $_SERVER['SERVER_NAME'] ) ) . ( isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '' );
 		}
 
 		return $current_url;
@@ -179,8 +186,8 @@ class Yivic_Base_Helper {
 
 		if ( ! static::is_pdo_mysql_loaded() ) {
 			$error_message = sprintf(
-				// translators: %1$s is replaced by a string, extension name
-				__( 'Error with PHP extention %1$s. Please enable PHP extension %1$s via your hosting Control Panel or contact your hosting Admin for that.', 'yivic' ),
+			// translators: %1$s is replaced by a string, extension name
+				__( 'Error with PHP extention %1$s. Please enable PHP extension %1$s via your hosting Control Panel or contact your hosting Admin for that.', 'yivic-base' ),
 				'PDO MySQL'
 			);
 			static::add_wp_app_setup_errors( $error_message );
@@ -195,8 +202,8 @@ class Yivic_Base_Helper {
 		// We only want to check if it's not in the setup url
 		if ( ! static::at_setup_app_url() && ! static::at_admin_setup_app_url() && static::is_setup_app_failed() ) {
 			$error_message = sprintf(
-				// translators: %1$s is replaced by a string, url
-				__( 'The setup has not been done correctly. Please go to this URL <a href="%1$s">%1$s</a> to complete the setup', 'yivic' ),
+			// translators: %1$s is replaced by a string, url
+				__( 'The setup has not been done correctly. Please go to this URL <a href="%1$s">%1$s</a> to complete the setup', 'yivic-base' ),
 				static::get_admin_setup_app_uri( true )
 			);
 			static::add_wp_app_setup_errors( $error_message );
@@ -314,24 +321,56 @@ class Yivic_Base_Helper {
 	}
 
 	/**
+	 * Prepare WordPress application folders with correct permissions.
 	 *
-	 * @param string $wp_app_base_path
-	 * @param int $chmod We may want to use `0755` if running this function in console
+	 * @param int $chmod Permissions, default 0755.
+	 * @param string $wp_app_base_path Base path of the WordPress application.
 	 * @return void
 	 */
-	public static function prepare_wp_app_folders( $chmod = 0777, string $wp_app_base_path = '' ): void {
+	public static function prepare_wp_app_folders( $chmod = 0755, string $wp_app_base_path = '' ): void {
 		if ( empty( $wp_app_base_path ) ) {
 			$wp_app_base_path = static::get_wp_app_base_path();
 		}
-		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.chmod_chmod, WordPress.PHP.NoSilencedErrors.Discouraged
-		@chmod( dirname( $wp_app_base_path ), $chmod );
+
+		// Initialize the WP Filesystem API
+		global $wp_filesystem;
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+
+		if ( ! WP_Filesystem() ) {
+			develog( 'WP_Filesystem could not be initialized.' );
+			return; // Avoid proceeding if WP_Filesystem isn't available
+		}
+
+		// Ensure WP_Filesystem is ready
+		if ( is_null( $wp_filesystem ) ) {
+			develog( 'WP_Filesystem global is still null after initialization.' );
+			return;
+		}
+
+		// Use WP_Filesystem to change directory permissions
+		$base_dir = dirname( $wp_app_base_path );
+		if ( ! $wp_filesystem->chmod( $base_dir, $chmod ) ) {
+			develog( "Failed to change permissions for: $base_dir" );
+		}
 
 		$file_system = new \Illuminate\Filesystem\Filesystem();
 
+		// Use WP_Filesystem for directory creation and permission setting
 		foreach ( static::get_wp_app_base_folders_paths( $wp_app_base_path ) as $filepath ) {
-			$file_system->ensureDirectoryExists( $filepath, $chmod );
-			// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.chmod_chmod, WordPress.PHP.NoSilencedErrors.Discouraged
-			@chmod( $filepath, $chmod );
+			if ( ! $wp_filesystem->mkdir( $filepath, $chmod ) ) {
+				// If WP_Filesystem fails, check manually if the directory exists
+				if ( ! is_dir( $filepath ) ) {
+					$file_system->ensureDirectoryExists( $filepath, $chmod );
+					develog( "Fallback: Laravel Filesystem created directory: $filepath" );
+				}
+			}
+
+			// Attempt to set permissions using WP_Filesystem
+			if ( ! $wp_filesystem->chmod( $filepath, $chmod ) ) {
+				develog( "Failed to set permissions for: $filepath" );
+			}
 		}
 	}
 
@@ -439,6 +478,10 @@ class Yivic_Base_Helper {
 		return (bool) defined( 'WP_CONTENT_DIR' );
 	}
 
+	public static function is_app_loaded(): bool {
+		return function_exists( 'app' ) && app() instanceof Application;
+	}
+
 	public static function get_php_sapi_name(): string {
 		return php_sapi_name();
 	}
@@ -459,13 +502,21 @@ class Yivic_Base_Helper {
 		);
 	}
 
+	/**
+	 * Checks if the command includes 'yivic-base' and 'prepare'.
+	 *
+	 * @param array|null $argv Optional. Command-line arguments. Defaults to $_SERVER['argv'] if not provided.
+	 * @return bool True if the command includes 'yivic-base' and 'prepare'; otherwise, false.
+	 */
 	public static function is_yivic_base_prepare_command( array $argv = null ): bool {
-		// Default to using $_SERVER['argv'] if not provided
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		$argv = $argv ?? $_SERVER['argv'];
+		// Default to using sanitized and unslashed $_SERVER['argv'] if not provided
+		$argv = $argv ?? array_map( 'sanitize_text_field', wp_unslash( $_SERVER['argv'] ?? [] ) );
 
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		return ! empty( $argv ) && array_intersect( (array) $argv, [ 'yivic-base', 'prepare' ] );
+		// Required items to check
+		$required = [ 'yivic-base', 'prepare' ];
+
+		// Check if both 'yivic-base' and 'prepare' are in $argv
+		return count( array_intersect( $required, $argv ) ) === count( $required );
 	}
 
 	public static function init_wp_app_instance() {
@@ -494,13 +545,13 @@ class Yivic_Base_Helper {
 	}
 
 	/**
-	* Generate the URL of a full WordPress URL with domain name to a named route.
-	*
-	* @param  array|string  $name
-	* @param  mixed  $parameters
-	* @param  bool  $absolute
-	* @return string
-	*/
+	 * Generate the URL of a full WordPress URL with domain name to a named route.
+	 *
+	 * @param  array|string  $name
+	 * @param  mixed  $parameters
+	 * @param  bool  $absolute
+	 * @return string
+	 */
 	public static function route_with_wp_url( $name, $parameters = [] ) {
 		return rtrim( site_url(), '/' ) . route( $name, $parameters, false );
 	}

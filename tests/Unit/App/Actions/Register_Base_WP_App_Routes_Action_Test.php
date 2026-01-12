@@ -31,7 +31,7 @@ class Register_Base_WP_App_Routes_Action_Test extends Unit_Test_Case {
 			->with( 'setup-app' )
 			->once();
 
-			// TODO: Adjust test to cover closure function with prefix
+		// TODO: Adjust test to cover closure function with prefix
 		// For dashboard routes
 		Route::shouldReceive( 'group' )
 			->once();

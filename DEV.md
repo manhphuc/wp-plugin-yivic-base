@@ -7,7 +7,7 @@ COMPOSER=composer-laravel7.json composer install --no-dev --ignore-platform-reqs
 ```
 composer update --ignore-platform-reqs
 ```
-- For standalone plugin development, we need to setup docker and pull WordPress installation
+- For standalone plugin development, we need to set up docker and pull WordPress installation
 ```
 COMPOSER=composer-standalone.json composer install --no-dev --ignore-platform-reqs
 ```

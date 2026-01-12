@@ -23,18 +23,18 @@ class Perform_Web_Worker_Action extends Base_Action {
 		}
 
 		// We want to try a job 1 time
-		//  and we only want to retry a job 7 minutes after
+		//  And we only want to retry a job 7 minutes after
 		Artisan::call(
 			'queue:work',
 			[
-				'connection' => $this->get_site_database_queue_connection(),
-				'--queue' => $this->get_site_default_queue(),
-				'--tries' => 1,
-				'--backoff' => $this->get_queue_backoff(),
-				'--quiet' => true,
+				'connection'        => $this->get_site_database_queue_connection(),
+				'--queue'           => $this->get_site_default_queue(),
+				'--tries'           => 1,
+				'--backoff'         => $this->get_queue_backoff(),
+				'--quiet'           => true,
 				'--stop-when-empty' => true,
-				'--timeout' => 60,
-				'--memory' => 256,
+				'--timeout'         => 60,
+				'--memory'          => 256,
 			]
 		);
 	}

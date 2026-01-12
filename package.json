@@ -1,6 +1,6 @@
 {
   "name": "yivic-base",
-  "version": "0.7.0",
+  "version": "0.9.1",
   "description": "Yivic Base packages",
   "scripts": {
     "build": "webpack --mode production",

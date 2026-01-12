@@ -35,7 +35,7 @@ class Get_WP_App_Info_Action_Test extends Unit_Test_Case {
 			->willReturn( '5.7.2' );
 
 		// Define the Laravel version for this test
-		$expected_laravel_version = '8.83.27';
+		$expected_laravel_version = '8.83.28';
 		$this->assertSame( Application::VERSION, $expected_laravel_version ); // Mocked value
 
 		// Call the handle method

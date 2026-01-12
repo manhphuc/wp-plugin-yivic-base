@@ -5,8 +5,10 @@
  * Description: Base plugin for WP development using Laravel
  * Author:      dev@yivic.com, manhphucofficial@yahoo.com
  * Author URI:  https://yivic.com/yivic-team/
- * Version:     0.7.0
- * Text Domain: yivic
+ * Version:     0.9.1
+ * License:     MIT
+ * License URI: https://mit-license.org/
+ * Text Domain: yivic-base
  */
 
 // We want to split all the bootstrapping code to a separate file

@@ -2,8 +2,8 @@
   "name": "yivic/yivic-base",
   "type": "wordpress-muplugin",
   "description": "The base plugin to have powerful Laravel development on WordPress",
-  "version": "v0.7.0",
-  "time": "2024-05-23 20:14:04",
+  "version": "v0.9.1",
+  "time": "2026-01-12 12:26:29",
   "homepage": "https://yivic.com/wp-plugin-yivic-base",
   "license": "MIT",
   "authors": [
@@ -43,7 +43,8 @@
   "autoload": {
     "files": [
       "src/Foundation/Support/helpers-utils.php",
-      "yivic-base-bootstrap.php"
+      "./yivic-base-bootstrap.php",
+      "./yivic-base-init.php"
     ],
     "psr-4": {
       "Carbon\\Traits\\Creator\\": "src/Foundation/Support/Carbon/Traits/Creator.php",

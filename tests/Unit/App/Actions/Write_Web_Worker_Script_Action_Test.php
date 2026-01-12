@@ -27,8 +27,8 @@ class Write_Web_Worker_Script_Action_Test extends Unit_Test_Case {
 		// Mock Yivic_Base_Helper::disable_web_worker to return false
 		$helper_mock = Mockery::mock( 'alias:Yivic_Base\App\Support\Yivic_Base_Helper' );
 		$helper_mock->shouldReceive( 'disable_web_worker' )
-			->andReturn( false )
-			->once();
+			->once()
+			->andReturn( false );
 
 		// Mock the route_with_wp_url to return a known URL
 		$web_worker_url = 'https://example.com/wp-api/web-worker/';
@@ -47,29 +47,24 @@ class Write_Web_Worker_Script_Action_Test extends Unit_Test_Case {
 		$output = ob_get_clean();
 
 		// Assert the expected output contains the correct script
-		$expected_script = <<<SCRIPT
-		<script type="text/javascript">
-			var yivic_base_web_worker_url = '$web_worker_url';
-			function ajax_request_to_web_worker() {
-				if (typeof(jQuery) !== 'undefined') {
-					jQuery.ajax({
-						url: yivic_base_web_worker_url,
-						method: "POST"
-					});
-				} else {
-					const response = fetch(yivic_base_web_worker_url);
-				}
-			}
-			var ajax_request_to_web_worker_interval = window.setInterval(function(){
-				ajax_request_to_web_worker();
-			}, 7*7*60*1000);
-			window.setTimeout(function() {
-				ajax_request_to_web_worker();
-			}, 1000);
-		</script>
-SCRIPT;
+		$script = '<script type="text/javascript">';
+		$script .= 'var yivic_base_web_worker_url = \'' . $web_worker_url . '\';';
+		$script .= 'function ajax_request_to_web_worker() {';
+		$script .= 'if (typeof(jQuery) !== "undefined") {';
+		$script .= 'jQuery.ajax({ url: yivic_base_web_worker_url, method: "POST" });';
+		$script .= '} else {';
+		$script .= 'fetch(yivic_base_web_worker_url);';
+		$script .= '}';
+		$script .= '}';
+		$script .= 'var ajax_request_to_web_worker_interval = window.setInterval(function(){';
+		$script .= 'ajax_request_to_web_worker();';
+		$script .= '}, 7*7*60*1000);';
+		$script .= 'window.setTimeout(function() {';
+		$script .= 'ajax_request_to_web_worker();';
+		$script .= '}, 1000);';
+		$script .= '</script>';
 
-		$this->assertStringContainsString( $expected_script, $output );
+		$this->assertEquals( $script, $output );
 	}
 
 	/**
@@ -80,8 +75,8 @@ SCRIPT;
 		// Mock Yivic_Base_Helper::disable_web_worker to return true
 		$helper_mock = Mockery::mock( 'alias:Yivic_Base\App\Support\Yivic_Base_Helper' );
 		$helper_mock->shouldReceive( 'disable_web_worker' )
-			->andReturn( true )
-			->once();
+			->once()
+			->andReturn( true );
 
 		// Capture the output
 		ob_start();

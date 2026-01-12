@@ -54,7 +54,7 @@ class View_Service_Provider extends ViewServiceProvider {
 	}
 
 	/**
-	 * The view complided path to store compiled files
+	 * The view compiled path to store compiled files
 	 *
 	 * @return string
 	 * @throws BindingResolutionException

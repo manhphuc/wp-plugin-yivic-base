@@ -20,9 +20,11 @@
     "automattic/vipwpcs": "~3.0.0",
     "phpcompatibility/php-compatibility": "~9.3.5",
     "dealerdirect/phpcodesniffer-composer-installer": "~1.0.0",
+    "phpstan/phpstan": "~2.0.1",
     "phpunit/phpunit": "~9.6",
     "mockery/mockery": "~1.6",
     "phpspec/prophecy": "~1.19.0",
+    "php-stubs/wordpress-stubs": "~6.6.2",
     "brain/monkey": "~2.6.0",
     "10up/wp_mock": "~1.0.0",
     "codeception/codeception": "~5.0.0",
@@ -55,6 +57,9 @@
   ],
   "autoload": {
     "files": [
+      "src/Foundation/Support/helpers-utils.php",
+      "./yivic-base-bootstrap.php",
+      "./yivic-base-init.php"
     ],
     "psr-4": {
       "Yivic_Base\\Deps\\": "src-deps",
@@ -124,11 +129,15 @@
     "phpcs": [
       "./vendor/bin/phpcs"
     ],
+    "phpstan": [
+      "./vendor/bin/phpstan"
+    ],
     "phpunit": [
       "./vendor/bin/phpunit"
     ],
     "test": [
       "@phpcs",
+      "@phpstan",
       "@phpunit"
     ]
   }

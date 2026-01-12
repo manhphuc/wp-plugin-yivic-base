@@ -19,7 +19,7 @@ interface WP_Plugin_Interface {
 	public function manipulate_hooks(): void;
 
 	/**
-	 * The plugin should have a human readable name
+	 * The plugin should have a human-readable name
 	 * @return string
 	 */
 	public function get_name(): string;

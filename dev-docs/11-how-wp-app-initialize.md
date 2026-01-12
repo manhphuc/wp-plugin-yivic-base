@@ -31,19 +31,19 @@ In web mode, the plugin performs the following tasks:
 Steps to be executed in sequence:
 
 1. **Perform WP App Check**:
-   - If the environment is not in CLI mode, the `Yivic_Base_Helper::perform_wp_app_check()` method is used to verify that the necessary extensions and WordPress application setup steps are in place. If the check fails, the process exits early.
+    - If the environment is not in CLI mode, the `Yivic_Base_Helper::perform_wp_app_check()` method is used to verify that the necessary extensions and WordPress application setup steps are in place. If the check fails, the process exits early.
 
 2. **Register Redirect Action**:
-   - The setup process begins by registering a redirect action using `Yivic_Base_Helper::register_setup_app_redirect()`. This method ensures that users are redirected to the appropriate setup page.
-   - This action is added to the `YIVIC_BASE_SETUP_HOOK_NAME` hook, with `Yivic_Base_Helper::maybe_redirect_to_setup_app()` as the callback function. The priority of this action is set to `-200`.
+    - The setup process begins by registering a redirect action using `Yivic_Base_Helper::register_setup_app_redirect()`. This method ensures that users are redirected to the appropriate setup page.
+    - This action is added to the `YIVIC_BASE_SETUP_HOOK_NAME` hook, with `Yivic_Base_Helper::maybe_redirect_to_setup_app()` as the callback function. The priority of this action is set to `-200`.
 
 3. **Register WP App Setup Hooks**:
-   - Next, the necessary hooks for the proper setup of the WP App are registered via `Yivic_Base_Helper::register_wp_app_setup_hooks()`.
-   - This method ensures that the WP App instance is loaded during the setup process by adding an action to the `YIVIC_BASE_SETUP_HOOK_NAME` hook, using `\Yivic_Base\App\WP\WP_Application::load_instance()` as the callback function. The priority of this action is set to `-100`.
+    - Next, the necessary hooks for the proper setup of the WP App are registered via `Yivic_Base_Helper::register_wp_app_setup_hooks()`.
+    - This method ensures that the WP App instance is loaded during the setup process by adding an action to the `YIVIC_BASE_SETUP_HOOK_NAME` hook, using `\Yivic_Base\App\WP\WP_Application::load_instance()` as the callback function. The priority of this action is set to `-100`.
 
 4. **Signal WP App Fully Loaded**:
-   - Finally, the method `Yivic_Base_Helper::register_wp_app_loaded_action()` is called to signal that the WP App has fully loaded after all necessary setup actions are completed.
-   - An action is added to the `\Yivic_Base\App\Support\App_Const::ACTION_WP_APP_LOADED` hook, with `Yivic_Base_Helper::handle_wp_app_loaded_action()` as the callback function. This function initializes the Yivic Base WordPress plugin by calling `\Yivic_Base\App\WP\Yivic_Base_WP_Plugin::init_with_wp_app()` with the plugin slug, directory, and URL parameters.
+    - Finally, the method `Yivic_Base_Helper::register_wp_app_loaded_action()` is called to signal that the WP App has fully loaded after all necessary setup actions are completed.
+    - An action is added to the `\Yivic_Base\App\Support\App_Const::ACTION_WP_APP_LOADED` hook, with `Yivic_Base_Helper::handle_wp_app_loaded_action()` as the callback function. This function initializes the Yivic Base WordPress plugin by calling `\Yivic_Base\App\WP\Yivic_Base_WP_Plugin::init_with_wp_app()` with the plugin slug, directory, and URL parameters.
 
 ## Summary
 

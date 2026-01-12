@@ -76,7 +76,7 @@ class WP_Theme_Test extends Unit_Test_Case {
 			->andReturnUsing(
 				function ( $abstract = null ) use ( $mock_wp_theme ) {
 					if ( $abstract ) {
-							return $mock_wp_theme;
+						return $mock_wp_theme;
 					} else {
 						return new WP_App_Tmp_Has_True_WP_Theme();
 					}
@@ -209,7 +209,7 @@ class WP_Theme_Test extends Unit_Test_Case {
 			->andReturnUsing(
 				function ( $abstract = null ) use ( $mock_wp_theme ) {
 					if ( $abstract ) {
-							return $mock_wp_theme;
+						return $mock_wp_theme;
 					} else {
 						return new WP_App_Tmp_Has_True_WP_Theme();
 					}

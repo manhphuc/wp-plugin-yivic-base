@@ -17,7 +17,7 @@ class Sample_Test extends Unit_Test_Case {
 	}
 
 	public function test_something() {
-		// Assetions go here
+		// Assertions go here
 		$this->assertTrue( true );
 	}
 }

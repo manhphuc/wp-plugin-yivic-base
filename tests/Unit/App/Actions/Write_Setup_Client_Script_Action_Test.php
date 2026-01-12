@@ -72,20 +72,16 @@ class Write_Setup_Client_Script_Action_Test extends Unit_Test_Case {
 		$output = ob_get_clean();
 
 		// Assert the expected output contains the correct script
-		$expected_script = <<<SCRIPT
-			<script type="text/javascript">
-				var yivic_base_setup_url = '$setup_url';
-				if (typeof(jQuery) !== 'undefined') {
-					jQuery.ajax({
-						url: yivic_base_setup_url,
-						method: "GET"
-					});
-				} else {
-					const response = fetch(yivic_base_setup_url);
-				}
-			</script>
-SCRIPT;
-		$this->assertStringContainsString( $expected_script, $output );
+		$script = '<script type="text/javascript">';
+		$script .= 'var yivic_base_setup_url = \'' . $setup_url . '\';';
+		$script .= 'if (typeof(jQuery) !== "undefined") {';
+		$script .= 'jQuery.ajax({ url: yivic_base_setup_url, method: "GET" });';
+		$script .= '} else {';
+		$script .= 'fetch(yivic_base_setup_url);';
+		$script .= '}';
+		$script .= '</script>';
+
+		$this->assertEquals( $script, $output );
 	}
 
 	/**

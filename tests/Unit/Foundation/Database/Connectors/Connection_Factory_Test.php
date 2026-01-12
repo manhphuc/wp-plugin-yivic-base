@@ -26,8 +26,8 @@ class Connection_Factory_Test extends Unit_Test_Case {
 		$this->container = new Container_Test_Tmp();
 		$this->connection_factory = new Connection_Factory( $this->container );
 		$this->pdo_connection = $this->getMockBuilder( Container_Test_Tmp_PDO::class )
-		->disableOriginalConstructor()
-		->getMock();
+			->disableOriginalConstructor()
+			->getMock();
 	}
 
 	protected function tearDown(): void {
