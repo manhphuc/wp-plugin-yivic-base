@@ -1,0 +1,44 @@
+{
+  "name": "yivic-base",
+  "version": "0.9.1",
+  "description": "Yivic Base packages",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --watch --mode development",
+    "phpunit:coverage": "php -d xdebug.max_nesting_level=512 -d xdebug.mode=coverage ./vendor/bin/phpunit --coverage-text -vvv",
+    "phpunit:coverage-html": "php -d xdebug.max_nesting_level=512 -d xdebug.mode=coverage ./vendor/bin/phpunit --coverage-html",
+    "phpunit:coverage-single": "php -d xdebug.max_nesting_level=512 -d xdebug.mode=coverage ./vendor/bin/phpunit --coverage-text --no-configuration --colors --bootstrap=tests/bootstrap-unit.php",
+    "phpunit": "php -d xdebug.max_nesting_level=512 ./vendor/bin/phpunit"
+  },
+  "author": "dev@yivic.com",
+  "license": "MIT",
+  "keywords": [
+    "Yivic Base"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.24.5",
+    "@babel/preset-env": "^7.24.5",
+    "autoprefixer": "^10.4.19",
+    "babel-loader": "^9.1.3",
+    "css-loader": "^3.6.0",
+    "css-minimizer-webpack-plugin": "^7.0.0",
+    "dotenv": "^16.4.5",
+    "dotenv-webpack": "^8.1.0",
+    "file-loader": "^6.2.0",
+    "i": "^0.3.7",
+    "mini-css-extract-plugin": "^2.9.0",
+    "postcss": "^8.4.38",
+    "postcss-loader": "^8.1.1",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.77.0",
+    "sass-loader": "^14.2.1",
+    "source-map-loader": "^5.0.0",
+    "terser-webpack-plugin": "^5.3.10",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "webpack": "^5.91.0",
+    "webpack-build-notifier": "^2.3.0",
+    "webpack-cli": "^5.1.4"
+  }
+}

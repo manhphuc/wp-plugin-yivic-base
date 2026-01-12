@@ -1,22 +1,21 @@
 <?php
 
+declare(strict_types=1);
 
-namespace Yivic\Wp\YivicBase\App\Exceptions;
-
+namespace Yivic_Base\App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Illuminate\Support\ViewErrorBag;
 
-class Handler extends ExceptionHandler
-{
+class Handler extends ExceptionHandler {
+
 	/**
 	 * A list of the exception types that are not reported.
 	 *
 	 * @var array
 	 */
-	protected $dontReport = [
-		//
-	];
+	protected $dontReport = [];
 
 	/**
 	 * A list of the inputs that are never flashed for validation exceptions.
@@ -29,27 +28,42 @@ class Handler extends ExceptionHandler
 	];
 
 	/**
-	 * Report or log an exception.
+	 * Render the given HttpException.
 	 *
-	 * @param  \Throwable  $exception
-	 * @return void
-	 * @throws \Exception
+	 * @param  \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface  $e
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function report(Throwable $exception)
-	{
-		parent::report($exception);
+	protected function renderHttpException( HttpExceptionInterface $e ) {
+		$this->registerErrorViewPaths();
+
+		$view = $this->getHttpExceptionView( $e );
+
+		// We want to render the view for errors when on debug mode
+		//  and the environment should not be 'production'
+		if (
+			view()->exists( $view )
+			&& ( ! config( 'app.debug' ) || config( 'app.env' ) === 'production' )
+		) {
+			return response()->view(
+				$view,
+				[
+					'errors' => new ViewErrorBag(),
+					'exception' => $e,
+				],
+				$e->getStatusCode(),
+				$e->getHeaders()
+			);
+		}
+
+		return $this->convertExceptionToResponse( $e );
 	}
 
 	/**
-	 * Render an exception into an HTTP response.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \Throwable  $exception
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 * @throws Throwable
+	 * @inheritedDoc
+	 * @param HttpExceptionInterface $e
+	 * @return string
 	 */
-	public function render($request, Throwable $exception)
-	{
-		return parent::render($request, $exception);
+	protected function getHttpExceptionView( HttpExceptionInterface $e ) {
+		return 'yivic-base::errors/error';
 	}
 }
