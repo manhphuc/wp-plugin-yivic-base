@@ -1,0 +1,83 @@
+services:
+  wordpress81:
+    build:
+      context: .
+      dockerfile: ./dev-docker/Dockerfile81
+    ports:
+      - ${HTTP_EXPOSING_PORT_PREFIX}81:80
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    volumes:
+      # For WordPress site
+      - ./dev-docker/wordpress:/var/www/html/public
+      # For current plugin
+      - ./:/var/www/html/public/wp-content/mu-plugins/yivic-base/
+      # Miscs
+      - ./dev-docker/log/:/var/log/
+    env_file:
+      - ./.env
+    environment:
+      - DB_CONNECTION
+      - DB_PORT
+      - DB_DATABASE
+      - DB_USERNAME
+      - DB_PASSWORD
+      - DB_TABLE_PREFIX=npm81_
+      - DB_HOST
+      - DB_USER
+      - DB_NAME
+      - WP_ENV
+      - WP_BASE_PATH
+      - WP_DEBUG
+      - WP_DEBUG_LOG
+      - WP_DEBUG_LOG_PATH
+      - SAVEQUERIES
+      - AUTH_KEY
+      - SECURE_AUTH_KEY
+      - LOGGED_IN_KEY
+      - NONCE_KEY
+      - AUTH_SALT
+      - SECURE_AUTH_SALT
+      - LOGGED_IN_SALT
+      - NONCE_SALT
+      - WP_CACHE_KEY_SALT
+      - WP_ALLOW_MULTISITE
+      - MULTISITE
+      - SUBDOMAIN_INSTALL
+      - DOMAIN_CURRENT_SITE
+      - PATH_CURRENT_SITE
+      - SITE_ID_CURRENT_SITE
+      - BLOG_ID_CURRENT_SITE
+      # WP App
+      - YIVIC_BASE_WP_APP_BASE_PATH
+      - YIVIC_BASE_WP_APP_PREFIX
+      - YIVIC_BASE_WP_API_PREFIX
+      - WP_APP_TINKER_ENABLED
+      - ARTISAN_BINARY
+      # PHP Env Variables
+      - PHP_DATE_TIMEZONE
+      - PHP_MAX_EXECUTION_TIME
+      - PHP_MEMORY_LIMIT
+      - PHP_POST_MAX_SIZE
+      - PHP_UPLOAD_MAX_FILESIZE
+      - PHP_DISPLAY_ERRORS
+      - PHP_OPEN_BASEDIR
+      - PHP_SENDMAIL_PATH
+      - PHP_POOL_NAME
+
+  mysql8:
+    image: mysql:8
+    command: mysqld --authentication_policy=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - ${MYSQL_EXPOSING_PORT}:3306
+    volumes:
+      - mysql_db:/var/lib/mysql
+      - './dev-docker/config/mysql/my.cnf:/etc/mysql/conf.d/my.cnf'
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE=$DB_NAME
+      - MYSQL_PASSWORD=$DB_PASSWORD
+      - MYSQL_USER=$DB_USER
+volumes:
+  mysql_db:

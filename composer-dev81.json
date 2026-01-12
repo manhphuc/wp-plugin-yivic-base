@@ -1,0 +1,144 @@
+{
+  "name": "yivic/yivic-base",
+  "type": "wordpress-muplugin",
+  "require": {
+    "laravel/framework": "~8.83.0",
+    "spatie/laravel-html": "~2.30.0",
+    "laravel/tinker": "~2.9.0",
+    "doctrine/dbal": "~3.3.8",
+    "symfony/var-dumper": "~5.4.39",
+    "mcaskill/composer-exclude-files": "~4.0.0",
+    "php": "^7.3|^8.0"
+  },
+  "require-dev": {
+    "johnpbloch/wordpress-core": "^6.1.0",
+    "wp-plugin/woocommerce": "*",
+    "wpackagist-plugin/query-monitor": "^3.15",
+    "wpackagist-plugin/woocommerce-product-price-based-on-countries": "^3.0.0",
+    "wpackagist-theme/storefront": "^4.0",
+    "wpackagist-theme/twentytwentyfour": "^1.0.0",
+    "automattic/vipwpcs": "~3.0.0",
+    "phpcompatibility/php-compatibility": "~9.3.5",
+    "dealerdirect/phpcodesniffer-composer-installer": "~1.0.0",
+    "phpstan/phpstan": "~2.0.1",
+    "phpunit/phpunit": "~9.6",
+    "mockery/mockery": "~1.6",
+    "phpspec/prophecy": "~1.19.0",
+    "php-stubs/wordpress-stubs": "~6.6.2",
+    "brain/monkey": "~2.6.0",
+    "10up/wp_mock": "~1.0.0",
+    "codeception/codeception": "~5.0.0",
+    "codeception/module-asserts": "~3.0",
+    "codeception/module-phpbrowser": "~3.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "wp-plugin/woocommerce",
+        "version": "8.5.2",
+        "type": "wordpress-plugin",
+        "dist": {
+          "type": "zip",
+          "url": "https://downloads.wordpress.org/plugin/woocommerce.8.5.2.zip"
+        }
+      }
+    },
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org",
+      "only": [
+        "wpackagist-plugin/*",
+        "wpackagist-theme/*"
+      ]
+    }
+  ],
+  "autoload": {
+    "files": [
+      "src/Foundation/Support/helpers-utils.php",
+      "./yivic-base-bootstrap.php",
+      "./yivic-base-init.php"
+    ],
+    "psr-4": {
+      "Yivic_Base\\Deps\\": "src-deps",
+      "Yivic_Base\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "files": [
+    ],
+    "psr-4": {
+      "Yivic_Base\\Tests\\": "tests"
+    }
+  },
+  "config": {
+    "platform": {
+      "php": "8.1.0"
+    },
+    "platform-check": false,
+    "allow-plugins": {
+      "composer/installers": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "mcaskill/composer-exclude-files": true
+    },
+    "vendor-dir": "./vendor",
+    "sort-packages": true
+  },
+  "extra": {
+    "exclude-from-files": [
+      "laravel/framework/src/Illuminate/Foundation/helpers.php"
+    ],
+    "installer-paths": {
+      "dev-docker/wordpress/wp-content/mu-plugins/{$name}/": [
+        "type:wordpress-muplugin"
+      ],
+      "dev-docker/wordpress/wp-content/themes/{$name}/": [
+        "type:wordpress-theme"
+      ],
+      "dev-docker/wordpress/wp-content/plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ]
+    },
+    "mozart": {
+      "dep_namespace": "Yivic_Base\\Deps\\",
+      "dep_directory": "/src-deps/",
+      "classmap_directory": "/classes/deps/",
+      "classmap_prefix": "Yivic_Base_",
+      "packages": [
+      ],
+      "excluded_packages": [],
+      "override_autoload": [],
+      "delete_vendor_directories": false
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "cp -r `find ./vendor/johnpbloch/wordpress-core -maxdepth 1 -mindepth 1 | cut -c3- | grep -vE 'wp-content$|composer.json$|wp-cli.yml$|README.md$|LICENSE.md$'` ./dev-docker/wordpress",
+      "rm -rf `find ./vendor/johnpbloch/wordpress-core -maxdepth 1 -mindepth 1 | cut -c3- | grep -vE 'license.txt|readme.html'`"
+    ],
+    "post-update-cmd": [
+      "cp -r `find ./vendor/johnpbloch/wordpress-core -maxdepth 1 -mindepth 1 | cut -c3- | grep -vE 'wp-content$|composer.json$|wp-cli.yml$|README.md$|LICENSE.md$'` ./dev-docker/wordpress",
+      "rm -rf `find ./vendor/johnpbloch/wordpress-core -maxdepth 1 -mindepth 1 | cut -c3- | grep -vE 'license.txt|readme.html'`"
+    ],
+    "dev-update": [
+      "cp -r `find ./vendor/johnpbloch/wordpress-core -maxdepth 1 -mindepth 1 | cut -c3- | grep -vE 'wp-content$|composer.json$|wp-cli.yml$|README.md$|LICENSE.md$'` ./dev-docker/wordpress",
+      "rm -rf `find ./vendor/johnpbloch/wordpress-core -maxdepth 1 -mindepth 1 | cut -c3- | grep -vE 'license.txt|readme.html'`"
+    ],
+    "phpcs": [
+      "./vendor/bin/phpcs"
+    ],
+    "phpstan": [
+      "./vendor/bin/phpstan"
+    ],
+    "phpunit": [
+      "./vendor/bin/phpunit"
+    ],
+    "test": [
+      "@phpcs",
+      "@phpstan",
+      "@phpunit"
+    ]
+  }
+}

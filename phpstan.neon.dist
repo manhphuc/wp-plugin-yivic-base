@@ -1,0 +1,17 @@
+parameters:
+    level: max  # Set the analysis level (0-8 or 'max'). 'max' is the strictest.
+
+    paths:
+        - src  # Specify the directories or files you want PHPStan to analyze.
+
+    # Excludes certain paths from analysis, such as vendor or test directories
+    excludePaths:
+        - vendor
+        - tests
+
+    scanFiles:
+        - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+
+    # Define autoload files, if necessary
+    bootstrapFiles:
+        - yivic-base-bootstrap.php
