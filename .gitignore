@@ -1,9 +1,25 @@
-# package management
-vendor
-node_modules
+### This Project
+# Dotenv
+.env
+.env.*
+!.env.example
+phpcs.cache
+phpcs.xml
+phpunit.xml
 
-# others
-cgi-bin
+# WP-CLI
+/wp-cli.local.yml
+
+# Docker compose
+docker-compose.override.yml
+docker-compose.local.yml
+
+# package management
+/vendor
+/vendor-*
+/node_modules
+.phpunit.cache
+
 
 # zip files
 *.zip
@@ -12,8 +28,12 @@ cgi-bin
 # sass
 .sass-cache
 
+# .vscode
+.vscode
+
 # phpstorm project files
 .idea
+.DS_Store
 
 # netbeans project files
 nbproject
@@ -35,3 +55,20 @@ __MACOSX/
 
 # phpunit itself is not needed
 phpunit.phar
+
+#prepros file
+prepros.cfg
+
+# applications
+# CodeKit
+config.codekit
+.codekit-cache
+
+# Logs
+*.log
+
+# others
+/cgi-bin
+
+#robot file
+/robots.txt
